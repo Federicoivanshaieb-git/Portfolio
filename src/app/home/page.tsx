@@ -40,7 +40,7 @@ const HomePage = () => {
             <div className="relative z-10 text-center space-y-6 px-4 max-w-5xl flex flex-col items-center justify-center">
                 {/* Título Principal Gigante con sombra marcada */}
                 <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
-                    Federico Ivan Shaieb.
+                    Federico Shaieb
                 </h1>
 
                 {/* Subtítulo Estilizado */}

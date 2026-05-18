@@ -35,7 +35,7 @@ const About = () => {
       title: "Sobre Mí",
       p1: (
         <>
-          Soy estudiante de <strong>Analista de Sistemas en la UNPAZ</strong> y <strong>Desarrollador Full Stack</strong> con una base estratégica en <strong>Ciencia de Datos</strong>, certificado por Coderhouse. Mi enfoque de la tecnología no se trata solo de escribir código; se trata de una sinergia meticulosa entre la precisión analítica, heredada de mi experiencia en datos, y una profunda pasión por la estética frontend de alto nivel.
+          Soy estudiante de <strong>Analista de Sistemas en la UNPAZ</strong> y <strong>Desarrollador Full Stack</strong>, certificado por Henry, con una base estratégica en <strong>Ciencia de Datos</strong>, certificado por Coderhouse. Mi enfoque de la tecnología no se trata solo de escribir código; se trata de una sinergia meticulosa entre la precisión analítica, heredada de mi experiencia en datos, y una profunda pasión por la estética frontend de alto nivel.
         </>
       ),
       p2: (
