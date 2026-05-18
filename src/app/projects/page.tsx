@@ -37,7 +37,7 @@ const projects = [
       es: "RetroStore – Plataforma de E-commerce. Desarrollada enfocándose en la experiencia de usuario y transacciones fluidas. Las características clave incluyen un sistema de carrito de compras robusto, integración de checkout seguro y arquitectura de estado centralizada. Diseñado bajo un enfoque mobile-first para garantizar un alto rendimiento en cualquier dispositivo."
     },
     stack: ["Next.js", "React", "PostgreSQL", "Tailwind", "TypeScript", "Github", "Git"],
-    deployUrl: "", 
+    deployUrl: "", // Al estar vacío, el sistema lo deshabilitará automáticamente
     githubUrl: "https://github.com/Federicoivanshaieb-git/modulo-4-de-henry-con-enfoque-en-front",
     images: [
       "/images/retrostore1.jpeg", 
@@ -114,10 +114,9 @@ interface Project {
   images: string[];
 }
 
-// NUEVO: Componente Lightbox para ver la imagen a tamaño completo
+// Componente Lightbox para ver la imagen a tamaño completo
 const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void }) => {
   useEffect(() => {
-    // Evitar scroll del modal principal cuando el lightbox está abierto
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'unset';
@@ -127,17 +126,17 @@ const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void 
   return (
     <div 
       className="fixed inset-0 bg-black/95 z-60 flex items-center justify-center p-4 cursor-zoom-out"
-      onClick={onClose} // Cerrar al hacer clic en el fondo
+      onClick={onClose}
     >
       <div 
         className="relative max-w-[95vw] max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()} // Evitar cerrar al hacer clic en la imagen
+        onClick={(e) => e.stopPropagation()}
       >
         <Image
           src={image}
           alt="Expanded view"
-          width={1920} // Ancho máximo
-          height={1080} // Alto máximo (proporción 16:9)
+          width={1920}
+          height={1080}
           className="rounded-lg object-contain shadow-2xl"
           priority
         />
@@ -155,29 +154,28 @@ const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void 
   );
 };
 
-// NUEVO: Componente Modal de Detalle Completo con Galería Expandible
+// Componente Modal de Detalle Completo con Galería Expandible
 const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: () => void; lang: 'en' | 'es' }) => {
-  // Estado para la imagen seleccionada en el lightbox
   const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
 
-  // Textos estáticos internos del modal traducidos
   const modalTranslations = {
     en: {
       techTitle: "Technologies Deployment",
       galleryTitle: "Project Interface Gallery",
-      captures: "Captures"
+      captures: "Captures",
+      demoUnavailable: "Demo Unavailable"
     },
     es: {
       techTitle: "Tecnologías Desplegadas",
       galleryTitle: "Galería de Interfaces del Proyecto",
-      captures: "Capturas"
+      captures: "Capturas",
+      demoUnavailable: "Demo no disponible"
     }
   };
 
   const mt = modalTranslations[lang];
 
   useEffect(() => {
-    // Evitar scroll del fondo cuando el modal principal está abierto
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'unset';
@@ -189,7 +187,6 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex justify-center items-center p-4 md:p-6 overflow-y-auto">
         <div className="bg-[#0f172a] border border-slate-800 text-white rounded-[40px] max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative flex flex-col custom-scrollbar">
           
-          {/* Botón Cerrar Flotante */}
           <button 
             onClick={onClose}
             className="absolute top-6 right-6 bg-slate-800 hover:bg-indigo-600 text-white p-3 rounded-full transition-colors duration-200 z-10 shadow-lg"
@@ -201,7 +198,6 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
           </button>
 
           <div className="p-8 md:p-12">
-            {/* Encabezado */}
             <div className="mb-6">
               <span className="text-xs font-black uppercase tracking-[0.3em] text-indigo-400 block mb-2">
                 {project.category}
@@ -211,19 +207,33 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
               </h3>
             </div>
 
-            {/* BOTONES ADICIONALES: Live Demo & GitHub Links */}
+            {/* BOTONES ADICIONALES: Lógica de deshabilitado dinámico para Live Demo */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <a
-                href={project.deployUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:scale-[1.02]"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                Live Demo
-              </a>
+              {project.deployUrl ? (
+                // Botón activo normal si tiene URL de despliegue
+                <a
+                  href={project.deployUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:scale-[1.02]"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Live Demo
+                </a>
+              ) : (
+                // Botón DESHABILITADO si la URL viene vacía (como en RetroStore)
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800/40 border border-slate-800 text-slate-500 text-sm font-bold rounded-xl cursor-not-allowed select-none"
+                >
+                  <svg className="w-5 h-5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                  </svg>
+                  {mt.demoUnavailable}
+                </button>
+              )}
 
               <a
                 href={project.githubUrl}
@@ -238,12 +248,10 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
               </a>
             </div>
 
-            {/* Descripción Técnica Completa según Idioma */}
             <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-8 max-w-4xl">
               {project.description[lang]}
             </p>
 
-            {/* Badges del Stack */}
             <div className="mb-12">
               <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
                 {mt.techTitle}
@@ -257,7 +265,6 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
               </div>
             </div>
 
-            {/* Grid de Colección Completa de Fotos con Interacción */}
             <div>
               <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-6 border-b border-slate-800 pb-2">
                 {mt.galleryTitle} ({project.images.length} {mt.captures})
@@ -267,7 +274,7 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
                   <div 
                     key={idx} 
                     className="relative h-48 rounded-2xl overflow-hidden group border border-slate-800 bg-slate-900 shadow-md cursor-zoom-in"
-                    onClick={() => setSelectedLightboxImage(img)} // Abrir lightbox al hacer clic
+                    onClick={() => setSelectedLightboxImage(img)}
                   >
                     <Image 
                       src={img} 
@@ -276,7 +283,6 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    {/* Overlay al pasar el mouse */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3">
                       <div className="bg-white/10 text-white p-4 rounded-full backdrop-blur-sm shadow-xl">
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -293,7 +299,6 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
         </div>
       </div>
 
-      {/* RENDERIZADO CONDICIONAL DEL LIGHTBOX SOBRE EL MODAL */}
       {selectedLightboxImage && (
         <ImageLightbox 
           image={selectedLightboxImage} 
@@ -305,11 +310,9 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
 };
 
 const Projects = () => {
-  // Estado para rastrear qué proyecto se está viendo en detalle
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { language } = useLanguage();
 
-  // Diccionario general de traducción de la vista Projects
   const viewTranslations = {
     en: {
       sectionTitle: "Core Portfolio",
@@ -330,7 +333,6 @@ const Projects = () => {
   return (
     <section id="projects" className="py-24 bg-[#0f172a] px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Encabezado */}
         <div className="mb-16 border-l-4 border-indigo-500 pl-6">
           <h2 className="text-white text-4xl font-black uppercase tracking-tighter">
             {vt.sectionTitle}
@@ -340,15 +342,12 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Grid de Proyectos */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {projects.map((project) => (
             <div key={project.id} className="bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col hover:scale-[1.01] transition-all duration-300 border border-slate-100">
               
-              {/* Carrusel Automático */}
               <ProjectCardImage images={project.images} title={project.title} />
 
-              {/* Contenido de la Tarjeta */}
               <div className="p-8 pt-4 flex-1 flex flex-col">
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-2">
                   {project.category}
@@ -357,12 +356,10 @@ const Projects = () => {
                   {project.title}
                 </h3>
                 
-                {/* Texto truncado adaptado al idioma */}
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
                   {project.description[language]}
                 </p>
 
-                {/* Technical Stack Badges */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {project.stack.slice(0, 5).map((tech) => (
                     <span key={tech} className="px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full border border-indigo-100">
@@ -376,7 +373,6 @@ const Projects = () => {
                   )}
                 </div>
 
-                {/* Botón de Acción */}
                 <div className="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white shrink-0 shadow-sm">
@@ -386,7 +382,6 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Botón "View Details" / "Ver Detalles" */}
                   <button
                     onClick={() => setSelectedProject(project)}
                     className="group flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold rounded-full transition-all duration-300 shadow-md hover:shadow-indigo-200"
@@ -404,7 +399,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* RENDERIZADO CONDICIONAL DEL MODAL PRINCIPAL ENVIANDO IDIOMA */}
       {selectedProject && (
         <ProjectModal 
           project={selectedProject} 
