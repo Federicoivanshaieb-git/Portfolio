@@ -19,7 +19,7 @@ const NavbarPersonalizada = () => {
         
         {/* Logo */}
         <div className="text-white font-black tracking-tighter text-xl">
-          FIS<span className="text-indigo-500">.</span>
+          Federico Ivan Shaieb<span className="text-indigo-500">.</span>
         </div>
 
         {/* Links de Navegación con el ORDEN CORREGIDO */}

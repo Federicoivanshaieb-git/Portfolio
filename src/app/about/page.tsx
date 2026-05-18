@@ -11,7 +11,7 @@ const About = () => {
       title: "About Me",
       p1: (
         <>
-          I am a <strong>Systems Analysis student at UNPAZ</strong> and a <strong>Full Stack Developer</strong> with a strategic foundation in <strong>Data Science</strong>, certified by Coderhouse. {"My approach to technology isn't just about writing code; it's about a meticulous synergy between analytical precision, inherited from my data background, and a deep-seated passion for high-end frontend aesthetics."}
+          I am a <strong>Systems Analysis student at UNPAZ</strong> and a <strong>Full Stack Developer</strong>,certified by Henry, with a strategic foundation in <strong>Data Science</strong>, certified by Coderhouse. {"My approach to technology isn't just about writing code; it's about a meticulous synergy between analytical precision, inherited from my data background, and a deep-seated passion for high-end frontend aesthetics."}
         </>
       ),
       p2: (
