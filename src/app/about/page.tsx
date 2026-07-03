@@ -5,7 +5,7 @@ import { useLanguage } from '@/context/lenguageContext';
 const About = () => {
   const { language } = useLanguage();
 
-  // Diccionario de traducciones manteniendo tu estructura exacta
+
   const translations = {
     en: {
       title: "About Me",
@@ -60,29 +60,25 @@ const About = () => {
   const t = translations[language];
 
   return (
-    /* Contenedor padre: flex-col y py-20 para que la tarjeta fluya hacia abajo sin cortarse */
     <div className="py-20 bg-[#0f172a] flex justify-center px-6">
-      
-      {/* Tarjeta blanca: h-auto y pb-16 aseguran que el fondo llegue hasta después del botón */}
+
       <div className="bg-white rounded-[30px] shadow-xl p-8 pb-16 max-w-7xl flex flex-col items-center gap-1 w-full h-auto">
 
-        {/* Contenedor de la Imagen con el borde circular */}
         <div className="relative shrink-0">
           <div className="w-48 h-48 rounded-full border-[5px] border-indigo-500 overflow-hidden shadow-inner">
-            <Image 
-              src="/images/shaieb.jpg" 
-              alt="Federico Ivan Shaieb" 
-              width={200} 
+            <Image
+              src="/images/shaieb.jpg"
+              alt="Federico Ivan Shaieb"
+              width={200}
               height={200}
               className="object-cover w-full h-full"
             />
           </div>
         </div>
 
-        {/* Contenido de Texto */}
         <div className="text-left w-full mt-6">
           <h1 className="text-indigo-600 text-3xl font-bold mb-4">{t.title}</h1>
-          
+
           <div className="text-gray-700 font-sans leading-relaxed space-y-4 text-sm sm:text-base">
             <p>{t.p1}</p>
             <p>{t.p2}</p>

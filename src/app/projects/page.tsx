@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ const projects = [
     githubUrl: "https://github.com/trackifly-app/Front-TrackiFly",
     images: [
       "/images/tracklifly1.jpeg",
-      "/images/tracklifly2.jpeg", 
+      "/images/tracklifly2.jpeg",
       "/images/tracklifly3.jpeg",
       "/images/tracklifly4.jpeg",
       "/images/tracklifly5.jpeg",
@@ -37,11 +37,11 @@ const projects = [
       es: "RetroStore – Plataforma de E-commerce. Desarrollada enfocándose en la experiencia de usuario y transacciones fluidas. Las características clave incluyen un sistema de carrito de compras robusto, integración de checkout seguro y arquitectura de estado centralizada. Diseñado bajo un enfoque mobile-first para garantizar un alto rendimiento en cualquier dispositivo."
     },
     stack: ["Next.js", "React", "PostgreSQL", "Tailwind", "TypeScript", "Github", "Git"],
-    deployUrl: "", // Al estar vacío, el sistema lo deshabilitará automáticamente
+    deployUrl: "",
     githubUrl: "https://github.com/Federicoivanshaieb-git/modulo-4-de-henry-con-enfoque-en-front",
     images: [
-      "/images/retrostore1.jpeg", 
-      "/images/retrostore2.jpeg", 
+      "/images/retrostore1.jpeg",
+      "/images/retrostore2.jpeg",
       "/images/retrostore3.jpeg",
       "/images/retrostore4.jpeg",
       "/images/retrostore5.jpeg",
@@ -51,7 +51,7 @@ const projects = [
   },
 ];
 
-// Componente para el carrusel automático de las tarjetas principales
+
 const ProjectCardImage = ({ images, title }: { images: string[], title: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -68,14 +68,13 @@ const ProjectCardImage = ({ images, title }: { images: string[], title: string }
         {images.map((img, index) => (
           <div
             key={img}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
           >
-            <Image 
-              src={img} 
-              alt={`${title} view ${index + 1}`} 
-              fill 
+            <Image
+              src={img}
+              alt={`${title} view ${index + 1}`}
+              fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={index === 0}
@@ -91,9 +90,8 @@ const ProjectCardImage = ({ images, title }: { images: string[], title: string }
                 e.stopPropagation();
                 setCurrentIndex(index);
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "w-4 bg-white" : "w-1.5 bg-white/50"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex ? "w-4 bg-white" : "w-1.5 bg-white/50"
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -114,7 +112,7 @@ interface Project {
   images: string[];
 }
 
-// Componente Lightbox para ver la imagen a tamaño completo
+
 const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -124,11 +122,11 @@ const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void 
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/95 z-60 flex items-center justify-center p-4 cursor-zoom-out"
       onClick={onClose}
     >
-      <div 
+      <div
         className="relative max-w-[95vw] max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
@@ -154,7 +152,7 @@ const ImageLightbox = ({ image, onClose }: { image: string, onClose: () => void 
   );
 };
 
-// Componente Modal de Detalle Completo con Galería Expandible
+
 const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: () => void; lang: 'en' | 'es' }) => {
   const [selectedLightboxImage, setSelectedLightboxImage] = useState<string | null>(null);
 
@@ -186,8 +184,8 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
     <>
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex justify-center items-center p-4 md:p-6 overflow-y-auto">
         <div className="bg-[#0f172a] border border-slate-800 text-white rounded-[40px] max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative flex flex-col custom-scrollbar">
-          
-          <button 
+
+          <button
             onClick={onClose}
             className="absolute top-6 right-6 bg-slate-800 hover:bg-indigo-600 text-white p-3 rounded-full transition-colors duration-200 z-10 shadow-lg"
             aria-label="Cerrar detalle"
@@ -207,10 +205,10 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
               </h3>
             </div>
 
-            {/* BOTONES ADICIONALES: Lógica de deshabilitado dinámico para Live Demo */}
+
             <div className="flex flex-wrap gap-4 mb-8">
               {project.deployUrl ? (
-                // Botón activo normal si tiene URL de despliegue
+
                 <a
                   href={project.deployUrl}
                   target="_blank"
@@ -223,7 +221,7 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
                   Live Demo
                 </a>
               ) : (
-                // Botón DESHABILITADO si la URL viene vacía (como en RetroStore)
+
                 <button
                   disabled
                   className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800/40 border border-slate-800 text-slate-500 text-sm font-bold rounded-xl cursor-not-allowed select-none"
@@ -271,13 +269,13 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {project.images.map((img, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="relative h-48 rounded-2xl overflow-hidden group border border-slate-800 bg-slate-900 shadow-md cursor-zoom-in"
                     onClick={() => setSelectedLightboxImage(img)}
                   >
-                    <Image 
-                      src={img} 
+                    <Image
+                      src={img}
                       alt={`${project.title} gallery asset ${idx + 1}`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -300,9 +298,9 @@ const ProjectModal = ({ project, onClose, lang }: { project: Project; onClose: (
       </div>
 
       {selectedLightboxImage && (
-        <ImageLightbox 
-          image={selectedLightboxImage} 
-          onClose={() => setSelectedLightboxImage(null)} 
+        <ImageLightbox
+          image={selectedLightboxImage}
+          onClose={() => setSelectedLightboxImage(null)}
         />
       )}
     </>
@@ -345,7 +343,7 @@ const Projects = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {projects.map((project) => (
             <div key={project.id} className="bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col hover:scale-[1.01] transition-all duration-300 border border-slate-100">
-              
+
               <ProjectCardImage images={project.images} title={project.title} />
 
               <div className="p-8 pt-4 flex-1 flex flex-col">
@@ -355,7 +353,7 @@ const Projects = () => {
                 <h3 className="text-2xl font-bold text-indigo-950 mb-4 tracking-tight">
                   {project.title}
                 </h3>
-                
+
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
                   {project.description[language]}
                 </p>
@@ -400,9 +398,9 @@ const Projects = () => {
       </div>
 
       {selectedProject && (
-        <ProjectModal 
-          project={selectedProject} 
-          onClose={() => setSelectedProject(null)} 
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
           lang={language}
         />
       )}
